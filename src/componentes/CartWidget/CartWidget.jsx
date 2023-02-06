@@ -1,5 +1,5 @@
 import imagen from '../../assets/carrito_compras.png'
-import './style.css'
+import './CartWidget.css'
 
 const CartWidget = ({contador}) =>{
     return(

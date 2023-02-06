@@ -1,6 +1,7 @@
 import CartWidget from "../CartWidget/CartWidget"
 import imagen from '../../assets/todo_sobre_ruedas.jpg'
 import './NavBar.css'
+import { Link, NavLink } from "react-router-dom"
 
 const NavBar = () => {
     return(
@@ -10,27 +11,26 @@ const NavBar = () => {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="#">
+                <Link to='/'>
                     <img src={imagen} alt="logo" className="logo"/>
-                </a>
+                </Link>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Bicicletas</a>
+                        <NavLink to='/categoria/Bicicletas' className={({ isActive }) => isActive ? 'btn btn-dark':'btn btn-outline-dark'} >Bicicletas</NavLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Patinetas</a>
+                        <NavLink to='/categoria/Patinetas' className={({ isActive }) => isActive ? 'btn btn-dark':'btn btn-outline-dark'} >Patinetas</NavLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Patines</a>
+                        <NavLink to='/categoria/Patines' className={({ isActive }) => isActive ? 'btn btn-dark':'btn btn-outline-dark'} >Patines</NavLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Electricos</a>
+                        <NavLink to='/categoria/Electricos' className={({ isActive }) => isActive ? 'btn btn-dark':'btn btn-outline-dark'} >Electricos</NavLink>
                     </li>
                 </ul>
-                {/* <form class="d-flex" role="search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> */}
-                <CartWidget contador={0} />
+                <Link to='/cart'>
+                    <CartWidget contador={0} />
+                </Link>
             </div>
         </div>
     </nav>
