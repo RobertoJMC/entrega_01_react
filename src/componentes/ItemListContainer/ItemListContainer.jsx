@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { gFetch } from '../../utils/gFetch'
+import ItemList from '../ItemList/ItemList'
 import './ItemListContainer.css'
 
 export const ItemListContainer = ({greeting}) => {
@@ -37,26 +38,12 @@ return (
 
   <div className='saludo'>
 
-      {loading ? <h2>Cargando...</h2> 
+      {loading ? (<div class="spinner-border" role="status">
+                      <span class="visually-hidden">Cargando...</span>
+                  </div>)
       :
-      productos.map(producto => <div key={producto.id}>
-                                        <div class="row row-cols-1 row-cols-md-3 g-4">
-                                          <div class="col" className="card h-100 w-100"> 
-                                            <div class="card h-100" className='w-100'>
-                                                <img src={producto.imagen} class="card-img-top" alt="imagen"/>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{producto.nombre}</h5>
-                                                    <p class="card-text"> Precio: {producto.precio}</p>
-                                                </div>
-                                                <div class="card-footer">
-                                                  <Link to={`/detalle/${producto.id}`}>
-                                                    <button class="btn btn-dark">Detalles</button>
-                                                  </Link>
-                                                </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                </div>)}
+      (<ItemList productos={productos} />)
+        }
   </div>
   </>
   )

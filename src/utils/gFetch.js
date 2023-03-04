@@ -5,7 +5,7 @@ const productos = [
     {id: '4', categoria: 'Patinetas', nombre: 'Patineta verde', detalle: 'Caracteristicas pendientes por escribir', precio: 12000, imagen: '../../src/assets/patineta_2.jpg'},
     {id: '5', categoria: 'Patines', nombre: 'Patines talla S', detalle: 'Caracteristicas pendientes por escribir', precio: 8500, imagen: '../../src/assets/patines_1.jpg'},
     {id: '6', categoria: 'Patines', nombre: 'Patines talla M', detalle: 'Caracteristicas pendientes por escribir', precio: 9000, imagen: '../../src/assets/patines_2.jpg'},
-    {id: '7', categoria: 'Electricos', nombre: 'Monopatin 50km/h', detalle: 'PCaracteristicas pendientes por escribir', precio: 450000, imagen: '../../src/assets/electrico_1.jpg'},
+    {id: '7', categoria: 'Electricos', nombre: 'Monopatin 50km/h', detalle: 'Caracteristicas pendientes por escribir', precio: 450000, imagen: '../../src/assets/electrico_1.jpg'},
     {id: '8', categoria: 'Electricos', nombre: 'Monopatin 30km/h', detalle: 'Caracteristicas pendientes por escribir', precio: 250000, imagen: '../../src/assets/electrico_2.jpg'},
 ]
  

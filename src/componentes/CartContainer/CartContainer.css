@@ -1,0 +1,19 @@
+.carrito{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: fit-content;
+    width: fit-content;
+}
+
+.cabeceraCarrito{
+    display: flex;
+    justify-content: space-between;
+}
+
+.borde{
+    border: 1px solid #000000;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+}

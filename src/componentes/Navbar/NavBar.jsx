@@ -29,7 +29,7 @@ const NavBar = () => {
                     </li>
                 </ul>
                 <Link to='/cart'>
-                    <CartWidget contador={0} />
+                    <CartWidget />
                 </Link>
             </div>
         </div>
