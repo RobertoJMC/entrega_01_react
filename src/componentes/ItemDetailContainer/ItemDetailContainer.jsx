@@ -1,3 +1,4 @@
+import {collection, doc, getDoc, getDocs, getFirestore, query, where} from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { gFetch } from '../../utils/gFetch'
@@ -5,33 +6,19 @@ import ItemDetail from '../ItemDetail/ItemDetail'
 
 export const ItemDetailContainer = () => {
 
-    const [productos,setProductos] = useState([])
+    const [producto,setProductos] = useState([])
     const [loading,setLoading] = useState(true)
     
     const {idProducto} = useParams()
 
-    useEffect(()=> {
-        if(idProducto){
-          gFetch()
-          .then(res => {
-            setProductos(res.filter(productos => productos.id == idProducto))
-          }
-          )
-          .catch(error => console.log('Fallo todo'))
-          .finally(()=> setLoading(false))
-        }
-        else{
-          gFetch()
-          .then(res => {
-            setProductos(res)
-          }
-          )
-          .catch(error => console.log('Fallo todo'))
-          .finally(()=> setLoading(false))
-        }
-      }, [idProducto])
-
-
+    useEffect(()=>{        
+      const db = getFirestore() 
+      const query = doc(db, 'productos', idProducto)
+      getDoc(query)
+      .then(resp => setProductos( { id: resp.id, ...resp.data() } ))
+      .catch(error => console.log(error))
+      .finally(()=> setLoading(false))
+  }, [])
 
   return (
     <>
@@ -40,9 +27,9 @@ export const ItemDetailContainer = () => {
   
         {loading ? (<div class="spinner-border" role="status">
                       <span class="visually-hidden">Cargando...</span>
-                  </div>) 
+                  </div>)
         :
-        productos.map(producto => <ItemDetail producto={producto} />)}
+        (<ItemDetail producto={producto} />)}
     </div>
     </>
   )
