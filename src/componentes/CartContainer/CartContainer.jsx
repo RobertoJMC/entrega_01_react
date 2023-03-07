@@ -7,15 +7,12 @@ import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore'
 
 const CartContainer = () => {
 
-  const mostrarId = () => {
-    const [mid,setMid] = useState([])
-    const db = getFirestore() 
-    const queryCollections = collection(db, 'orders')
-    getDocs(queryCollections)
-    .then(resp => setMid( resp.docs.map(product => ({ id: product.id, ...product.data()} ) )))
-    .catch(err => console.error(err))
-    alert(mid.id)
-  }
+const [id,setId] = useState('')
+
+const showID = () =>{
+    console.log(id)
+    alert("Su compra ha sido generada con exito con el ID: " + id)
+}
 
 
   const [formData, setFormData] = useState( {
@@ -36,7 +33,7 @@ const CartContainer = () => {
     const ordersCollection = collection(db, 'orders')
     
     addDoc(ordersCollection, order)
-    .then(resp => console.log(resp))
+    .then(resp => setId(resp.id))
     .catch(err => console.log(err))
     .finally(() => {
         vaciarCarrito()
@@ -100,7 +97,7 @@ const CartContainer = () => {
                     value={formData.repetirEmail}
 
                 /><br />
-                <button className="btn btn-outline-success" type="submit" onClick={mostrarId}>Generar orden</button>
+                <button className="btn btn-outline-success" type="submit" onClick={showID}>Generar orden</button>
             </form>
         </div>
         <div>
