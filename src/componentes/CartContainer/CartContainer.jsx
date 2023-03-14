@@ -10,8 +10,12 @@ const CartContainer = () => {
 const [id,setId] = useState('')
 
 const showID = () =>{
-    console.log(id)
-    alert("Su compra ha sido generada con exito con el ID: " + id)
+    if (id===''){
+        alert("Hubo un error en la solicitud de compra, intente nuevamente")
+    }
+    else{
+        alert("Su compra ha sido generada con exito con el ID: " + id)
+    }
 }
 
 
@@ -24,6 +28,8 @@ const showID = () =>{
 
   const {cartList, vaciarCarrito, precioTotal, eliminarProducto} = useCartContext()
 
+  const [errors, setErrors] = useState({});
+
   const insertarOrder = (evt) => {
     evt.preventDefault()
     const order = {}
@@ -31,19 +37,50 @@ const showID = () =>{
 
     const db = getFirestore()
     const ordersCollection = collection(db, 'orders')
-    
-    addDoc(ordersCollection, order)
-    .then(resp => setId(resp.id))
-    .catch(err => console.log(err))
-    .finally(() => {
-        vaciarCarrito()
-        setFormData({
-            name: '',
-            phone: '',
-            email:'',
-            repetirEmail: ''
-        })
-      })
+
+    const newErrors = {};
+    if (!formData.name) {
+      newErrors.name = 'El nombre es requerido';
+    }
+    if (!formData.phone) {
+      newErrors.phone = 'El numero telefonico es requerido';
+    }
+    if (!formData.email) {
+      newErrors.email = 'El correo electronico es requerido';
+    }
+    if (!formData.repetirEmail) {
+        newErrors.repetirEmail = 'El correo electronico es requerido';
+      }
+    setErrors(newErrors);
+
+    if (formData.email !== formData.repetirEmail){
+        alert("Correo electronico no coincide, escribalo nuevamente")
+    }
+    else{
+            if (Object.keys(newErrors).length === 0) {
+
+            addDoc(ordersCollection, order)
+            .then(resp => setId(resp.id))
+            .catch(err => console.log(err))
+            .finally(() => {
+                if (id===''){
+                    alert("Hubo un error en la solicitud de compra, intente nuevamente")
+                }
+                else{
+                    alert("Su compra ha sido generada con exito con el ID: " + id)
+                    vaciarCarrito()
+                    setFormData({
+                        name: '',
+                        phone: '',
+                        email:'',
+                        repetirEmail: ''
+                    })
+            }
+            console.log(id)
+            //showID()
+            })
+            }
+        }
   }
 
   const handleOnChange = (evt) => {
@@ -65,14 +102,17 @@ const showID = () =>{
         </div>
         <div>
             <form onSubmit={insertarOrder} >
+                <label htmlFor="name">Nombre: </label>
                 <input 
                     type="text" 
                     name="name"          
                     placeholder = "Ingrese el nombre"   
                     onChange={handleOnChange} 
                     value={formData.name}
-
-                /><br />
+                />
+                <p>{errors.name}</p>
+                <br />
+                <label htmlFor="phone">Telefono: </label>
                 <input 
                     type="text" 
                     name="phone"         
@@ -80,7 +120,10 @@ const showID = () =>{
                     onChange={handleOnChange} 
                     value={formData.phone}
 
-                /><br />
+                />
+                <p>{errors.phone}</p>
+                <br />
+                <label htmlFor="email">Correo: </label>
                 <input 
                     type="text" 
                     name="email"         
@@ -88,7 +131,10 @@ const showID = () =>{
                     onChange={handleOnChange} 
                     value={formData.email}
 
-                /><br />
+                />
+                <p>{errors.email}</p>
+                <br />
+                <label htmlFor="repetirEmail">Repetir correo: </label>
                 <input 
                     type="text" 
                     name="repetirEmail"  
@@ -96,8 +142,10 @@ const showID = () =>{
                     onChange={handleOnChange} 
                     value={formData.repetirEmail}
 
-                /><br />
-                <button className="btn btn-outline-success" type="submit" onClick={showID}>Generar orden</button>
+                />
+                <p>{errors.repetirEmail}</p>
+                <br />
+                <button className="btn btn-outline-success" type="submit">Generar orden</button>
             </form>
         </div>
         <div>
