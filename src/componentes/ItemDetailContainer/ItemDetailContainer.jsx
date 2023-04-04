@@ -25,8 +25,8 @@ export const ItemDetailContainer = () => {
 
     <div className='saludo'>
   
-        {loading ? (<div class="spinner-border" role="status">
-                      <span class="visually-hidden">Cargando...</span>
+        {loading ? (<div className="spinner-border" role="status">
+                      <span className="visually-hidden">Cargando...</span>
                   </div>)
         :
         (<ItemDetail producto={producto} />)}

@@ -8,7 +8,7 @@ const CartWidget = () =>{
 
     return(
         <>
-        <button class="btn btn-outline-dark">
+        <button className="btn btn-outline-dark">
             <img src={imagen} alt="carrito" className='img' />
             {cantidadTotal()}
         </button>
